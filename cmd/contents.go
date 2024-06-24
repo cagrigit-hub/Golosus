@@ -172,14 +172,14 @@ gen:
 init:
 	@templ generate
 	@go mod tidy
-	@npm install --prefix ./typescript
+	@cd ./typescript && npm install 
 run: 
 	@templ generate
-	@npm run build --prefix ./typescript
+	@cd ./typescript && npm run build 
 	@go run ./cmd $(ARGS)
 build:
 	@templ generate
-	@npm run build --prefix ./typescript
+	@cd ./typescript && npm run build
 	@go build -o ./tmp/bin ./cmd
 `
 }
@@ -240,7 +240,7 @@ func (c *Content) PackageJson(name string) string {
   "description": "golosus-web-app, go check github.com/cagrigit-hub/golosus",
   "main": "index.ts",
   "scripts": {
-    "build": "rm -rf ./ts-build && npx tsc && browserify --node --ignore-missing ./ts-build/index.js | terser > ../assets/bundled/bundle.js"
+    "build": "rimraf ./ts-build && npx tsc && browserify --node --ignore-missing ./ts-build/index.js | terser > ../assets/bundled/bundle.js"
   },
   "keywords": [
     "golosus"
@@ -250,6 +250,7 @@ func (c *Content) PackageJson(name string) string {
   "type": "module",
   "devDependencies": {
     "@types/node": "^20.5.6",
+    "rimraf": "^5.0.7",
     "typescript": "^5.2.2"
   },
   "dependencies": {
