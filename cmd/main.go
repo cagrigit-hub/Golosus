@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -13,15 +12,27 @@ type file struct {
 }
 
 func main() {
-	// get --name flag
-	var name string
-	flag.StringVar(&name, "name", "Golosus-Web", "project name")
-	var githubProfile string
-	flag.StringVar(&githubProfile, "github", "cagrigit-hub", "github user name")
-	flag.Parse()
+	// open CLI menu
+	openCLIMenu()
+	// get option
+	var option int
+	fmt.Scanln(&option)
 
-	// command := goModInit(name, githubProfile)
-	// exec.Command("sh", "-c", command).Run()
+	var name string
+	var githubProfile string
+	switch option {
+	case 1:
+		fmt.Println("Enter project name: ")
+		fmt.Scanln(&name)
+		fmt.Println("Enter your github profile: ")
+		fmt.Scanln(&githubProfile)
+		fmt.Println("Creating project...")
+	case 2:
+		fmt.Println("Exiting Golosus-Web CLI")
+		return
+	default:
+		fmt.Println("Invalid option")
+	}
 
 	ct := &Content{}
 
@@ -119,7 +130,9 @@ func writeFiles(rn, target, name, content string) error {
 	return nil
 }
 
-func goModInit(name, github string) string {
-	// run command
-	return fmt.Sprintf("go mod init github.com/%s/%s", github, name)
+func openCLIMenu() {
+	fmt.Println("Welcome to Golosus-Web CLI")
+	fmt.Println("Please select an option")
+	fmt.Println("1. Create a new project")
+	fmt.Println("2. Exit")
 }

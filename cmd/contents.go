@@ -180,7 +180,7 @@ run:
 build:
 	@templ generate
 	@cd ./typescript && npm run build
-	@go build -o ./tmp/bin ./cmd
+	@go build -o ./tmp/bin.exe ./cmd
 `
 }
 
@@ -385,7 +385,7 @@ tmp_dir = "tmp"
 
 [build]
   args_bin = []
-  bin = "./tmp/bin"
+  bin = "./tmp/bin.exe"
   cmd = "make build"
   delay = 1000
   exclude_dir = ["assets", "tmp", "vendor", "testdata"]
